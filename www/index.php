@@ -7,9 +7,7 @@
 </header>
 <body>
 <div>
-    <script>
-        document.write("a");
-    </script>
+
 </div>
 </body>
 <footer>
