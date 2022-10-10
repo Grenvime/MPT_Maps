@@ -8,7 +8,7 @@
 <body>
 <div>
     <script>
-        document.write("aesasno");
+        document.write("a");
     </script>
 </div>
 </body>
