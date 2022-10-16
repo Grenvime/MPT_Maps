@@ -1,17 +1,32 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script src="js/main.js" type="text/javascript"></script>
-    <link href="css_styles/main.css" rel="stylesheet" type="text/css">
-    <title="MPT_Maps"></title>
+	<meta http-equiv="Content-type" content="text/html">
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="css_styles/main.css">
+	<title>Карта корпусов</title>
 </head>
 <body>
-<div>
+	<header>
+		<div class="buildings">
+			<div id="BS">Б. Семеновская</div>
+			<div id="PK">Павла Корчагина</div>
+			<div id="AV">Автозаводская</div>
+			<div id="PR">Прянишникова</div>
+		</div>
+	</header>
 
-</div>
+	<main>
+		<div class="content">
+			<img src="img/BS.png" id="map" alt="Карты пока нет :(" style="color: white">
+			<div id="search">
+				<input type="text" maxlength="23" id="searchBox">
+				<img src="img/search-icon.png" id="searchIcon">
+			</div>
+			
+		</div>
+	</main>
+
+	<script type="text/javascript" src="js/main.js"></script>
 </body>
-<footer>
-
-</footer>
 </html>
