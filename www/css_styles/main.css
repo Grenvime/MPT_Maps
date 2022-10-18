@@ -13,7 +13,7 @@ header {
 	height: 60px;
 }
 
-.buildings {
+.building_buttons {
 	display: flex;
 	justify-content: space-around;
 	
@@ -21,7 +21,7 @@ header {
 	line-height: 60px;
 }
 
-.buildings div {
+.building_buttons div {
 	min-width: 148px;
 	height: 44px;
 	margin-top: 8px;
@@ -75,10 +75,8 @@ main {
 	
 	
 	border-radius: 60px;
-	
+
 	font-size: 34px;
-	
-	background-image: url('img/search-icon.png');
 }
 
 #searchIcon {

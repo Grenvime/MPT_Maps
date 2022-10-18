@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-ru">
 <head>
 	<meta http-equiv="Content-type" content="text/html">
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="css_styles/main.css">
 	<title>Карта корпусов</title>
+	<script type="text/javascript" src="js/main.js"></script>
 </head>
 <body>
 	<header>
-		<div class="buildings">
+		<div class="building_buttons">
 			<div id="BS">Б. Семеновская</div>
 			<div id="PK">Павла Корчагина</div>
 			<div id="AV">Автозаводская</div>
@@ -16,17 +17,24 @@
 		</div>
 	</header>
 
+
 	<main>
 		<div class="content">
-			<img src="img/BS.png" id="map" alt="Карты пока нет :(" style="color: white">
+			<div class="map_image">
+				<img src="img/BS.png" id="map" alt="Карты пока нет :(" style="color: white">
+			</div>
+
 			<div id="search">
 				<input type="text" maxlength="23" id="searchBox">
-				<img src="img/search-icon.png" id="searchIcon">
+				<img src="img/search-icon.png" id="searchIcon" alt="карта корпуса лол">
 			</div>
 			
 		</div>
 	</main>
-
-	<script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
+<!-- Заметки для верстальщика (дай бог тебе здоровья)
+
+сделай так, чтобы инпут висел на одном месте вне зависимости от размера или наличия карты (а то он съезжает)
+
+можно под инпутом сделать переключение режимов просмотра (карта/фотки) в том случае если мы собираемся делать навигатор по карте дополнительно а пока необязательно-->
