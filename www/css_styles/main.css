@@ -60,9 +60,10 @@ main {
   	flex-flow: column wrap;
 }
 
-#map {
+.map_image {
 	margin-top: 34px;
 	margin-bottom: 21px;
+	position: relative;
 }
 
 #search {
@@ -87,5 +88,12 @@ main {
 	right: 80px;
 	
 	cursor: pointer;
+}
+
+.room_highlight{
+	position: absolute;
+	border: red 5px solid;
+	display: none;
+	box-sizing: border-box; /* граница едет без этого*/
 }
 

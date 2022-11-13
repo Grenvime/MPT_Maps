@@ -64,13 +64,38 @@ window.addEventListener("load", function () { // сделал это и подн
 		return {"place": place, "building": building, "floor": floor};
 	}
 
+	const room_highlight = document.getElementsByClassName("room_highlight")[0];
+
 	function find_room() {
 		let input = document.getElementById("searchBox").value;
 		for (let room in rooms) {
 			if (input.toUpperCase() === rooms[room].name.toUpperCase()){ // туапперкейз чтобы работало и ПР2610 и Пр2610 и пр2610
-
+				return rooms[room];
 			}
 		}
+	}
+
+	function change_highlight(room) {
+		if (window.getComputedStyle(room_highlight).display === "none") { // обычный style.display ищет в стилях установленных во время выполнения программы, чтобы узнать стиль из css надо getComputedStyle()
+			room_highlight.style.display = "block";
+		}
+
+		room_highlight.style.width = room.width_percent.toString() + "%";
+		room_highlight.style.height = room.height_percent.toString() + "%"; // перевести в проценты
+		room_highlight.style.left = room.from_left_percent.toString() + "%";
+		room_highlight.style.top = room.from_top_percent.toString() + "%";
+		room_highlight.style.rotate = room.rotation_degrees.toString() + "deg";
+	}
+
+	// все что должно происходить при нажатии лупы
+	function do_magick(){
+		let room = find_room();
+		if (!room) {
+			room_highlight.style.display = "none";
+			return null;
+		}
+
+		change_highlight(room);
 	}
 
 	class map{ // инфа для корректной работы карты
@@ -105,23 +130,25 @@ window.addEventListener("load", function () { // сделал это и подн
 		building;
 		floor;
 		number;
-		lenght_percent;
+		height_percent;
 		width_percent;
 		from_left_percent;
 		from_top_percent;
+		rotation_degrees;
 
-		constructor(name, lenght_percent, width_percent, from_left_percent, from_top_percent) {
+		constructor(name, height_percent, width_percent, from_left_percent, from_top_percent, rotation_degrees) {
 			let components = room_name_to_components(name);
 
 			this.name = name;
-			this.place = components["building"];
+			this.place = components["place"];
 			this.building = components["building"];
 			this.floor = components["floor"];
 			this.number = components["number"];
-			this.lenght_percent = lenght_percent; // это для // длина это слева направо
+			this.height_percent = height_percent; // это для // длина это слева направо
 			this.width_percent = width_percent; // подсветки // ширина это сверху вниз
 			this.from_left_percent = from_left_percent; // при выборе
 			this.from_top_percent = from_top_percent; // комнаты (в процентах от длины, ширины карты)
+			this.rotation_degrees = rotation_degrees;
 		}
 	}
 
@@ -130,7 +157,8 @@ window.addEventListener("load", function () { // сделал это и подн
 		"АВ11": new map("АВ11"),
 		"ПР11": new map("ПР11", 645, 901)}; // тут меняем размеры картинок
 
-	let rooms = {"ПР2110": new room("ПР2110", 10, 5, 30, 70)}; // просто пример
+	let rooms = {"ПР2110": new room("ПР2110", 6.5, 7, 62, 33, 41.5)}; // просто пример
+
 
 	let current_map = maps["А1"]; // что сейчас выбрано
 	let current_place = "БС";
@@ -178,8 +206,15 @@ window.addEventListener("load", function () { // сделал это и подн
 
 
 
-	searchIcon.addEventListener("click", find_room)
+	searchIcon.addEventListener("click", do_magick)
 
+
+	// чтобы еще enter можно было прожать
+	document.addEventListener("keydown", function (event) {
+		if (event.code === "Enter"){
+			do_magick();
+		}
+	})
 
 })
 
