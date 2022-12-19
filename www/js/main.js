@@ -5,7 +5,7 @@ window.addEventListener("load", function () { // сделал это и подн
 		let floor = Number(name.match(/\d(?=\d\d$)/)[0]);
 		let building;
 
-		if (place === ("А" || "Б" || "В" || "Н")){ // проверка на БС
+		if (place === "А" || place === "Б" || place === "В" || place === "Н"){ // проверка на БС
 			building = place;
 			place = "БС";
 		}
@@ -37,7 +37,7 @@ window.addEventListener("load", function () { // сделал это и подн
 		let floor = Number(name.match(/\d(?=$)/)[0]);
 		let building;
 
-		if (place === ("А" || "Б" || "В" || "Н")){ // проверка на БС
+		if (place === "А" || place === "Б" || place === "В" || place === "Н"){ // проверка на БС
 			building = place;
 			place = "БС";
 		}
@@ -95,6 +95,17 @@ window.addEventListener("load", function () { // сделал это и подн
 			return null;
 		}
 
+
+		if (room.place === current_map.place && room.building === current_map.building && room.floor === current_map.floor){ // если карта уже открыта
+			//nothing
+		}
+		else {
+			let map = define_map(room.place, room.building, room.floor);
+			console.log(map);
+			document.getElementById("map").src = map.src; // если не открыта то открыть
+			current_map = map;
+		}
+
 		change_highlight(room);
 	}
 
@@ -110,7 +121,7 @@ window.addEventListener("load", function () { // сделал это и подн
 
 		constructor(id, width, height) {
 			this.id = id;
-			this.src = "img/" + this.id + ".png";
+			this.src = "img/" + this.id + ".svg";
 			this.width = width; // Здесь должно было быть эпичное высчитывание ширины и длины фото по ссылке но это гавно делается только с локальным
 			this.height = height; // сервером так что вводим значения в виде аргументов руками (гроб гроб кладбище :((( )
 
@@ -152,52 +163,101 @@ window.addEventListener("load", function () { // сделал это и подн
 		}
 	}
 
-	let maps = {"А1": new map("А1"),
-		"ПК1": new map("ПК1"),
-		"АВ11": new map("АВ11"),
-		"ПР11": new map("ПР11", 645, 901)}; // тут меняем размеры картинок
+	let maps = {"В1": new map("В1"),
+		"ПР21": new map("ПР21", 645, 901)}; // тут меняем размеры картинок
 
-	let rooms = {"ПР2110": new room("ПР2110", 6.5, 7, 62, 33, 41.5)}; // просто пример
+	let rooms = {"ПР2110": new room("ПР2110", 6.7, 11.8, 40.5, 28.3, 0)}; // просто пример
 
+	let current_map = new map("А1");
+	let input_chosen_place = null;
+	let input_chosen_building = null;
+	let input_chosen_floor = null;
 
-	let current_map = maps["А1"]; // что сейчас выбрано
-	let current_place = "БС";
-	let current_building = 1;
-	let current_floor = 1;
-
-	document.getElementById(current_place).style.backgroundColor = "red";
-	document.getElementById("building_" + current_building).style.backgroundColor = "red";
-	document.getElementById("floor_" + current_floor).style.backgroundColor = "red"; // чтобы кнопки сразу были красными
-
-	// добавляем слушатель на каждую кнопку корпуса
-	document.querySelectorAll("header > div > button").forEach((button) => {
-		button.addEventListener("click", ev => {
-			if (button.parentElement.className === "place_buttons"){
-				document.getElementById(current_place).style.backgroundColor = "#D9D9D9";
-				current_place = button.id;
-				document.getElementById(current_place).style.backgroundColor = "red";
-			}
-			if (button.parentElement.className === "building_buttons"){
-				document.getElementById("building_" + current_building).style.backgroundColor = "#D9D9D9";
-				current_building = button.innerHTML;
-				document.getElementById("building_" + current_building).style.backgroundColor = "red";
-			}
-			if (button.parentElement.className === "floor_buttons"){
-				document.getElementById("floor_" + current_floor).style.backgroundColor = "#D9D9D9";
-				current_floor = button.innerHTML;
-				document.getElementById("floor_" + current_floor).style.backgroundColor = "red";
-			}
-			document.getElementById("map").src = define_map().src;
-		})
-	})
-
-	function define_map() {
+	function define_map(place, building, floor) {
 		for (let map in maps){
-			if (maps[map].place === current_place && maps[map].building === current_building && maps[map].floor === current_floor){
+			if (maps[map].place === place && maps[map].building == building && maps[map].floor === floor){
 				return maps[map];
 			}
 		}
 	}
+
+	const place_buttons = document.getElementsByClassName("place_button");
+	const building_menus = document.getElementsByClassName("building_buttons_select_container")[0].getElementsByClassName("menu");
+	const floor_menus = document.getElementsByClassName("floor_buttons_select_container")[0].getElementsByClassName("menu");
+	let nav_place_chosen = null;
+	let nav_building_chosen = null;
+	let nav_floor_chosen = null;
+
+	for (let button = 0; button < place_buttons.length; button++){
+		place_buttons[button].addEventListener("click", ev => {
+			let to_close = false;
+			if (nav_place_chosen === place_buttons[button].id) {
+				to_close = true; // чтобы вырубить если 2 раза ткнуть по одной и той же
+			}
+
+			nav_building_chosen = null; // при смене места очевидно корпус и этаж сбрасываются
+			nav_floor_chosen = null;
+			nav_place_chosen = place_buttons[button].id; // это для определения карты
+
+
+			for (let menu = 0; menu < building_menus.length; menu++){
+				building_menus[menu].style.display = "none";
+				floor_menus[menu].style.display = "none"; // отключаем все менюшки
+
+				if (building_menus[menu].id === nav_place_chosen + "_селектор") {
+					building_menus[menu].style.display = "block"; //врубаем нужную
+
+					if (to_close) {
+						building_menus[menu].style.display = "none"; // вырубаем если второй раз по одной и той же тыкнуть
+						nav_place_chosen = null; // если так не сделать то зависнет кнопка
+					}
+				}
+			}
+		})
+	}
+
+	const building_buttons_select_lines = document.getElementsByClassName("building_buttons_select_line");
+
+	for (let line = 0; line < building_buttons_select_lines.length; line++){
+		building_buttons_select_lines[line].addEventListener("click", ev => {
+			nav_floor_chosen = null;
+			nav_building_chosen = building_buttons_select_lines[line].getElementsByTagName("b")[0].innerText; // это для определения карты
+
+			for (let line2 = 0; line2 < building_buttons_select_lines.length; line2++){ // красим все кружки в белый
+				building_buttons_select_lines[line2].getElementsByClassName("circle")[0].style.backgroundColor = "#F0F0F0";
+			}
+
+			building_buttons_select_lines[line].getElementsByClassName("circle")[0].style.backgroundColor = "#94F0B9"; // красим нужный кружок
+
+
+			for (let menu = 0; menu < floor_menus.length; menu++){
+				floor_menus[menu].style.display = "none";
+
+				if (floor_menus[menu].id === nav_place_chosen + " " + nav_building_chosen) {
+					floor_menus[menu].style.display = "block";
+				}
+			}
+		})
+	}
+
+	const floor_buttons_select_lines = document.getElementsByClassName("floor_buttons_select_line");
+
+	for (let line = 0; line < floor_buttons_select_lines.length; line++) {
+		floor_buttons_select_lines[line].addEventListener("click", ev => {
+			nav_floor_chosen = floor_buttons_select_lines[line].getElementsByTagName("b")[0].innerText; // это для определения карты
+
+			for (let line2 = 0; line2 < floor_buttons_select_lines.length; line2++){ // красим все кружки в белый
+				floor_buttons_select_lines[line2].getElementsByClassName("circle")[0].style.backgroundColor = "#F0F0F0";
+			}
+
+			floor_buttons_select_lines[line].getElementsByClassName("circle")[0].style.backgroundColor = "#94F0B9"; // красим нужный кружок
+
+			let map = define_map(nav_place_chosen, nav_building_chosen.replace("Корпус ", ""), Number(nav_floor_chosen));
+			document.getElementById("map").src = map.src;
+			current_map = map;
+		})
+	}
+
 
 	// фокус на инпуте при нажатии на лупу
 	const searchIcon = document.getElementById("searchIcon");

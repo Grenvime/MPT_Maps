@@ -9,47 +9,339 @@
 </head>
 <body>
 	<header>
-		<div class="place_buttons">
-			<button id="БС">Б. Семеновская</button>
-			<button id="ПК">Павла Корчагина</button>
-			<button id="АВ">Автозаводская</button>
-			<button id="ПР">Прянишникова</button>
+		<div class="select">
+			<div class="place_buttons">
+				<button class="place_button" id="БС" btn="yes"><b btn="yes">Б. Семеновская</b> <img class="arrow" btn="yes" src="img/arrow.png"/></button>
+				<button class="place_button" id="ПК" btn="yes"><b btn="yes">Павла Корчагина</b> <img class="arrow" btn="yes" src="img/arrow.png"/></button>
+				<button class="place_button" id="АВ" btn="yes"><b btn="yes">Автозаводская</b> <img class="arrow" btn="yes" src="img/arrow.png"/></button>
+				<button class="place_button" id="ПР" btn="yes"><b btn="yes">Прянишникова</b> <img class="arrow" btn="yes" src="img/arrow.png"/></button>
+			</div>
 		</div>
-		<div class="building_buttons">
-			<button id="building_1">1</button>
-			<button id="building_2">2</button>
-			<button id="building_3">3</button>
+		
+		<div class="building_buttons_select_container">
+			<div class="buttons_select">
+				<div class="buttons_select_element">
+					<div id="БС_селектор" class="menu">
+						<div>
+							<div class="building_buttons_select_line">
+								<div class="circle"></div>
+								<b>Корпус А</b>
+							</div>
+							<div class="building_buttons_select_line">
+								<div class="circle"></div>
+								<b>Корпус Н</b>
+							</div>
+							<div class="building_buttons_select_line">
+								<div class="circle"></div>
+								<b>Корпус Б</b>
+							</div>
+							<div class="building_buttons_select_line">
+								<div class="circle"></div>
+								<b>Корпус В</b>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="buttons_select_element">
+					<div id="ПК_селектор" class="menu">
+						<div>
+							<div class="building_buttons_select_line">
+								<div class="circle"></div>
+								<b>Этаж 1</b>
+							</div>
+							<div class="building_buttons_select_line">
+								<div class="circle"></div>
+								<b>Этаж 2</b>
+							</div>
+							<div class="building_buttons_select_line">
+								<div class="circle"></div>
+								<b>Этаж 3</b>
+							</div>
+							<div class="building_buttons_select_line">
+								<div class="circle"></div>
+								<b>Этаж 4</b>
+							</div>
+							<div class="building_buttons_select_line">
+								<div class="circle"></div>
+								<b>Этаж 5</b>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="buttons_select_element">
+					<div id="АВ_селектор" class="menu">
+						<div>
+							<div class="building_buttons_select_line">
+								<div class="circle"></div>
+								<b>Корпус 1</b>
+							</div>
+							<div class="building_buttons_select_line">
+								<div class="circle"></div>
+								<b>Корпус 2</b>
+							</div>
+							<div class="building_buttons_select_line">
+								<div class="circle"></div>
+								<b>Корпус 3</b>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="buttons_select_element">
+					<div id="ПР_селектор" class="menu">
+						<div>
+							<div class="building_buttons_select_line">
+								<div class="circle"></div>
+								<b>Корпус 1</b>
+							</div>
+							<div class="building_buttons_select_line">
+								<div class="circle"></div>
+								<b>Корпус 2</b>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="floor_buttons">
-			<button id="floor_1">1</button>
-			<button id="floor_2">2</button>
-			<button id="floor_3">3</button>
-			<button id="floor_4">4</button>
-			<button id="floor_5">5</button>
-			<button id="floor_6">6</button>
-			<button id="floor_7">7</button>
+		<div class="floor_buttons_select_container">
+			<div class="buttons_select" style="display: grid; grid-template-columns: 9.75px 1fr 19.5px 1fr 19.5px 1fr 19.5px 1fr 9.75px">
+				<div class="buttons_select_element" style="grid-column-start: 2">
+					<div class="menu" id="БС Корпус А">
+						<div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>1</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>2</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>3</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>4</b>
+							</div>
+						</div>
+					</div>
+					<div class="menu" id="БС Корпус Н">
+						<div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>1</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>2</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>3</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>4</b>
+							</div>
+						</div>
+					</div>
+					<div class="menu" id="БС Корпус Б">
+						<div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>1</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>2</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>3</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>4</b>
+							</div>
+						</div>
+					</div>
+					<div class="menu" id="БС Корпус В">
+						<div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>1</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>2</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>3</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>4</b>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="buttons_select_element" style="grid-column-start: 6">
+					<div class="menu" id="АВ Корпус 1">
+						<div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>1</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>2</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>3</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>4</b>
+							</div>
+						</div>
+					</div>
+					<div class="menu" id="АВ Корпус 2">
+						<div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>1</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>2</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>3</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>4</b>
+							</div>
+						</div>
+					</div>
+					<div class="menu" id="АВ Корпус 3">
+						<div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>1</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>2</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>3</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>4</b>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="buttons_select_element" style="grid-column-start: 8">
+					<div class="menu" id="ПР Корпус 1">
+						<div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>1</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>2</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>3</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>4</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>5</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>6</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>7</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>8</b>
+							</div>
+						</div>
+					</div>
+					<div class="menu" id="ПР Корпус 2">
+						<div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>1</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>2</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>3</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>4</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>5</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>6</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>7</b>
+							</div>
+							<div class="floor_buttons_select_line">
+								<div class="circle"></div>
+								<b>8</b>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
+
 	</header>
 
 
 	<main>
 		<div class="content">
-			<div class="map_image" style="background: white">
+			<div class="map_image">
 				<div class="room_highlight"></div>
-				<img src="img/ПР11.svg" id="map" alt="Карты пока нет :(" style="color: white; width: 100%; height: 100%">
+				<img src="" id="map" alt="Карты пока нет :(" style="width: 100%; height: 100%">
 			</div>
 
 			<div id="search">
-				<input type="text" maxlength="23" id="searchBox" autofocus>
-				<img src="img/search-icon.png" id="searchIcon" alt="карта корпуса лол">
+				<input type="text" maxlength="23" id="searchBox" autofocus placeholder="Введите номер аудитории">
+				<img src="img/search-icon.png" id="searchIcon">
 			</div>
 			
 		</div>
 	</main>
 </body>
 </html>
-<!-- Заметки для верстальщика (дай бог тебе здоровья)
 
-сделай так, чтобы инпут висел на одном месте вне зависимости от размера или наличия карты (а то он съезжает)
-
-можно под инпутом сделать переключение режимов просмотра (карта/фотки) в том случае если мы собираемся делать навигатор по карте дополнительно а пока необязательно-->

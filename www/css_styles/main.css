@@ -2,47 +2,139 @@ body {
 	padding: 0;
 	margin: 0;
 	
-	background-color: #0E1C20;
+	background-color: #292929;;
+	z-index: 1;
+	position: relative;
+
+	font-family: 'Montserrat', sans-serif;
+	font-size: 15px;
 }
 
 header {
-	display: flex;
-	justify-content: center;
+	position: fixed;
+	z-index: 500;
+	width: 100%;
 	
-	background-color: #183239;
-	height: 180px;
-
-	flex-direction: column;
 }
 
-header > div {
+.select {
 	display: flex;
 	justify-content: space-around;
 	
-	width: 100%;
+	background-color: #3a3a3a;
+}
+
+.select .place_buttons {
+	display: flex;
+	justify-content: space-around;
+	
+	width: 730px;
 	height: 60px;
 }
 
-header > div > button { /* Изменение цвета будет в жсе*/
-	min-width: 148px;
+.select .place_buttons button { /* Изменение цвета будет в жсе*/
+	min-width: 163px;
 	height: 44px;
 	margin-top: 8px;
 	
-	background-color: #D9D9D9;
-	color: #0029FF;
-	border-radius: 50px;
-	
-	font-size: 15px;
-	font-family: 'Inter';
-	font-style: normal;
-	font-weight: 400;
-	
+	background-color: #2e2e2e;
+	color: #F0F0F0;
+	border-radius: 15px;
+	border: none;
+
 	line-height: 44px;
 	text-align: center;
 	
 	cursor: pointer;
 	
 	transition: transform ease 0.5s;
+}
+
+.place_button {
+
+}
+
+.arrow
+{
+	margin-left: 5px;
+}
+
+.building_buttons_select_container {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	z-index: 999; /* Z лол */
+}
+
+.floor_buttons_select_container {
+	position: absolute;
+	top: 210px;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	z-index: 999; /* Z лол */
+}
+
+.buttons_select {
+	width: 730px;
+	display: flex;
+	justify-content: space-around;
+}
+
+.buttons_select_element
+{
+	display: inline-block;
+	width: 163px;
+	position: relative;
+}
+
+.buttons_select .menu {
+	justify-content: center;
+
+	margin-top: 5px;
+	
+	color: #F0F0F0;
+	background-color: #2E2E2E;
+	border-radius: 15px;
+
+	padding: 15px;
+	display: none;
+}
+
+.building_buttons_select_line
+{
+	margin-top: 5px;
+	margin-bottom: 5px;
+	cursor: pointer;
+}
+
+.floor_buttons_select_line
+{
+	margin-top: 5px;
+	margin-bottom: 5px;
+	cursor: pointer;
+}
+
+.menu .circle
+{
+	width: 11px;
+	height: 11px;
+	
+	background-color: #F0F0F0;;
+	display: inline-block;
+
+	border-radius: 50%;
+	margin-right: 5px;
+}
+
+.menu .circle.hightlight
+{
+	background-color: #94F0B9;
+}
+
+.buttons_select .clicked {
+	visibility: visible;
 }
 
 .buildings div:hover {
@@ -53,6 +145,7 @@ header > div > button { /* Изменение цвета будет в жсе*/
 main {
 	display: flex;
 	justify-content: center;
+	padding-top: 34px;
 }
 
 .content {
@@ -61,39 +154,59 @@ main {
 }
 
 .map_image {
-	margin-top: 34px;
-	margin-bottom: 21px;
+	margin-top: 84px;
+	margin-bottom: 80px;
 	position: relative;
 }
 
 #search {
 	position: relative;
+	margin-bottom: 50px;
+	display: flex;
+	justify-content: center;
 }
 
 #searchBox {
 	width: 513px;
 	height: 73px;
-	margin-left: 60px;
+
 	padding: 0 34px 0 34px;
-	
-	
 	border-radius: 60px;
+	border: solid #313131;
+	outline: none;
 
 	font-size: 34px;
+
+	background: #313131;
+	color: #FFFFFF99;
+	font-size: 25px;
 }
+
+
 
 #searchIcon {
 	position: absolute;
 	padding: 17px 0;
-	right: 80px;
+	right: 120px;
 	
 	cursor: pointer;
 }
 
 .room_highlight{
 	position: absolute;
-	border: red 5px solid;
 	display: none;
-	box-sizing: border-box; /* граница едет без этого*/
+	background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(0, white 50%, transparent 50%), linear-gradient(0, white 50%, transparent 50%);
+	background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+	background-size: 8px 3px, 8px 3px, 3px 8px, 3px 8px;
+	animation: highlight 0.5s linear infinite;
+
 }
 
+@keyframes highlight {
+	from {
+		background-position: 0 0, 8px 100%, 0 8px, 100% 0;
+	}
+	to {
+		background-position: 8px 0, 0 100%, 0 0, 100% 8px;
+	}
+}
