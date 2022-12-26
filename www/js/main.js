@@ -201,50 +201,80 @@ window.addEventListener("load", function () { // сделал это и подн
 	let nav_place_chosen = null;
 	let nav_building_chosen = null;
 	let nav_floor_chosen = null;
-
-	for (let button = 0; button < place_buttons.length; button++){
-		place_buttons[button].addEventListener("click", ev => {
-			nav_building_chosen = null; // при смене места очевидно корпус и этаж сбрасываются
-			nav_floor_chosen = null;
-			nav_place_chosen = place_buttons[button].id; // это для определения карты
-		})
-	}
-
 	const building_buttons_select_lines = document.getElementsByClassName("building_buttons_select_line");
-
-	for (let line = 0; line < building_buttons_select_lines.length; line++){
-		building_buttons_select_lines[line].addEventListener("click", ev => {
-			nav_floor_chosen = null;
-			nav_building_chosen = building_buttons_select_lines[line].getElementsByTagName("b")[0].innerText; // это для определения карты
-
-			for (let line2 = 0; line2 < building_buttons_select_lines.length; line2++){ // красим все кружки в белый
-				building_buttons_select_lines[line2].getElementsByClassName("circle")[0].style.backgroundColor = "#F0F0F0";
-			}
-
-			building_buttons_select_lines[line].getElementsByClassName("circle")[0].style.backgroundColor = "#94F0B9"; // красим нужный кружок
-		})
-	}
-
 	const floor_buttons_select_lines = document.getElementsByClassName("floor_buttons_select_line");
 
-	for (let line = 0; line < floor_buttons_select_lines.length; line++) {
-		floor_buttons_select_lines[line].addEventListener("click", ev => {
-			nav_floor_chosen = floor_buttons_select_lines[line].getElementsByTagName("b")[0].innerText; // это для определения карты
-
-			for (let line2 = 0; line2 < floor_buttons_select_lines.length; line2++){ // красим все кружки в белый
-				floor_buttons_select_lines[line2].getElementsByClassName("circle")[0].style.backgroundColor = "#F0F0F0";
-			}
-
-			floor_buttons_select_lines[line].getElementsByClassName("circle")[0].style.backgroundColor = "#94F0B9"; // красим нужный кружок
-
-			let map = define_map(nav_place_chosen, nav_building_chosen.replace("Корпус ", ""), Number(nav_floor_chosen));
-			document.getElementById("map").src = map.src;
-			current_map = map;
-		})
-	}
-
 	document.addEventListener("click", ev => {
+
+		// чистим окошки
+
+		for (let line2 = 0; line2 < building_buttons_select_lines.length; line2++){ // красим все кружки в белый
+			building_buttons_select_lines[line2].getElementsByClassName("circle")[0].style.backgroundColor = "#F0F0F0";
+		}
+
+		for (let line2 = 0; line2 < floor_buttons_select_lines.length; line2++){ // красим все кружки в белый
+			floor_buttons_select_lines[line2].getElementsByClassName("circle")[0].style.backgroundColor = "#F0F0F0";
+		}
+
+		let place = null;
+		let building = null;
+		let floor = null;
+
+		// определяем что нажато
+
 		console.log(ev.target);
+		if (ev.target.parentElement === null){ // проверка на body
+			// ничего не открывается
+		}
+		else if (ev.target.classList[0] === "place_button"){
+			place = ev.target;
+		}
+		else if (ev.target.parentElement.classList[0] === "place_button"){
+			place = ev.target.parentElement;
+		}
+		else if (ev.target.classList[0] === "building_buttons_select_line"){
+			building = ev.target;
+		}
+		else if (ev.target.parentElement.classList[0] === "building_buttons_select_line"){
+			building = ev.target.parentElement;
+		}
+		else if (ev.target.classList[0] === "floor_buttons_select_line"){
+			floor = ev.target;
+		}
+		else if (ev.target.parentElement.classList[0] === "floor_buttons_select_line"){
+			floor = ev.target.parentElement;
+		}
+		else{
+			// ничего не открывается
+		}
+
+		// думаем что делать с нажатым
+
+		if (place){
+			nav_place_chosen = place.id; // это для определения карты
+
+			nav_building_chosen = null; // закрываем все что уровнем ниже
+			nav_floor_chosen = null;
+		}
+		else if (building){
+			nav_building_chosen = building.getElementsByTagName("b")[0].innerText; // это для определения карты
+
+			building.getElementsByClassName("circle")[0].style.backgroundColor = "#94F0B9"; // красим нужный кружок
+
+			nav_floor_chosen = null; // закрываем все что уровнем ниже
+		}
+		else if (floor){
+			nav_floor_chosen = floor.getElementsByTagName("b")[0].innerText; // это для определения карты
+
+			floor.getElementsByClassName("circle")[0].style.backgroundColor = "#94F0B9"; // красим нужный кружок
+		}
+		else{
+			nav_place_chosen = null;
+			nav_building_chosen = null;
+			nav_floor_chosen = null;
+		}
+
+		// закрываем окошки и открываем если выбраны
 
 		for (let menu = 0; menu < building_menus.length; menu++){
 			building_menus[menu].style.display = "none";
@@ -259,6 +289,14 @@ window.addEventListener("load", function () { // сделал это и подн
 			if (floor_menus[menu].id === nav_place_chosen + " " + nav_building_chosen) {
 				floor_menus[menu].style.display = "block";
 			}
+		}
+
+		// если все выбрано то делаем карту
+
+		if (nav_place_chosen && nav_building_chosen && nav_floor_chosen){
+			let map = define_map(nav_place_chosen, nav_building_chosen.replace("Корпус ", ""), Number(nav_floor_chosen));
+			document.getElementById("map").src = map.src;
+			current_map = map;
 		}
 	})
 
