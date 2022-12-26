@@ -159,15 +159,16 @@ main {
 	position: relative;
 }
 
+
 #search {
 	position: relative;
 	margin-bottom: 50px;
-	display: flex;
-	justify-content: center;
+	width: 513px;
+	align-self: center;
 }
 
 #searchBox {
-	width: 513px;
+	width: 85%;
 	height: 73px;
 
 	padding: 0 34px 0 34px;
@@ -187,7 +188,7 @@ main {
 #searchIcon {
 	position: absolute;
 	padding: 17px 0;
-	right: 120px;
+	right: 25px;
 	
 	cursor: pointer;
 }

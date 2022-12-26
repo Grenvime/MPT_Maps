@@ -24,7 +24,8 @@ window.addEventListener("load", function () { // сделал это и подн
 			}
 		}
 
-		if ((name.match(/\d(?=\d\d\d$)/)[0] !== undefined) && (place === "БС" || place === "ПК")){
+
+		if ((name.match(/\d(?=\d\d\d$)/) !== null) && (place === "БС" || place === "ПК")){
 			console.log("слишком много цифр"); // нормально обработать ошибку
 			return 0;
 		}
@@ -135,7 +136,7 @@ window.addEventListener("load", function () { // сделал это и подн
 		}
 	}
 
-	class room{ //тут просто сделать список с константными значениями для всех комнат (enum rooms ниже)
+	class room{ //тут просто сделать список с константными значениями для всех комнат (enum rooms ниже) // номер комнаты должен быть двухзначным (не 1 а 01)
 		name;
 		place;
 		building;
@@ -155,18 +156,31 @@ window.addEventListener("load", function () { // сделал это и подн
 			this.building = components["building"];
 			this.floor = components["floor"];
 			this.number = components["number"];
-			this.height_percent = height_percent; // это для // длина это слева направо
-			this.width_percent = width_percent; // подсветки // ширина это сверху вниз
+			this.height_percent = height_percent; // это для
+			this.width_percent = width_percent; // подсветки
 			this.from_left_percent = from_left_percent; // при выборе
-			this.from_top_percent = from_top_percent; // комнаты (в процентах от длины, ширины карты)
+			this.from_top_percent = from_top_percent; // комнаты (в процентах от ширины, высоты карты)
 			this.rotation_degrees = rotation_degrees;
 		}
 	}
 
 	let maps = {"В1": new map("В1"),
-		"ПР21": new map("ПР21", 645, 901)}; // тут меняем размеры картинок
+		"ПР21": new map("ПР21", 645, 901),
+		"Н2": new map("Н2")}; // тут меняем размеры картинок
 
-	let rooms = {"ПР2110": new room("ПР2110", 6.7, 11.8, 40.5, 28.3, 0)}; // просто пример
+	let rooms = {"ПР2110": new room("ПР2110", 6.7, 11.8, 40.5, 28.3, 0),
+		"В101": new room("В101", 48, 14.75, 1.25, 48, 0),
+		"В102": new room("В102", 45, 14.75, 1.25, 4, 0),
+		"В103": new room("В103", 35, 19.5, 15.75, 4, 0),
+		"В104": new room("В104", 35, 6.5, 35, 4, 0),
+		"В105": new room("В105", 35, 12.5, 41.25, 4, 0),
+		"В106": new room("В106", 35, 19.25, 53.5, 4, 0),
+		"В107": new room("В107", 35, 7.5, 77, 4, 0),
+		"В108": new room("В108", 44, 15, 84, 4, 0),
+		"В109": new room("В109", 49.5, 15, 84, 47, 0),
+		"В110": new room("В110", 34.5, 22.5, 47.25, 52.5, 0),
+		"В111": new room("В111", 34.5, 6.5, 41, 52.5, 0),
+		"В112": new room("В112", 34.5, 10.5, 30.5, 52.5, 0),}; // просто пример
 
 	let current_map = new map("А1");
 	let input_chosen_place = null;
@@ -190,29 +204,9 @@ window.addEventListener("load", function () { // сделал это и подн
 
 	for (let button = 0; button < place_buttons.length; button++){
 		place_buttons[button].addEventListener("click", ev => {
-			let to_close = false;
-			if (nav_place_chosen === place_buttons[button].id) {
-				to_close = true; // чтобы вырубить если 2 раза ткнуть по одной и той же
-			}
-
 			nav_building_chosen = null; // при смене места очевидно корпус и этаж сбрасываются
 			nav_floor_chosen = null;
 			nav_place_chosen = place_buttons[button].id; // это для определения карты
-
-
-			for (let menu = 0; menu < building_menus.length; menu++){
-				building_menus[menu].style.display = "none";
-				floor_menus[menu].style.display = "none"; // отключаем все менюшки
-
-				if (building_menus[menu].id === nav_place_chosen + "_селектор") {
-					building_menus[menu].style.display = "block"; //врубаем нужную
-
-					if (to_close) {
-						building_menus[menu].style.display = "none"; // вырубаем если второй раз по одной и той же тыкнуть
-						nav_place_chosen = null; // если так не сделать то зависнет кнопка
-					}
-				}
-			}
 		})
 	}
 
@@ -228,15 +222,6 @@ window.addEventListener("load", function () { // сделал это и подн
 			}
 
 			building_buttons_select_lines[line].getElementsByClassName("circle")[0].style.backgroundColor = "#94F0B9"; // красим нужный кружок
-
-
-			for (let menu = 0; menu < floor_menus.length; menu++){
-				floor_menus[menu].style.display = "none";
-
-				if (floor_menus[menu].id === nav_place_chosen + " " + nav_building_chosen) {
-					floor_menus[menu].style.display = "block";
-				}
-			}
 		})
 	}
 
@@ -257,6 +242,25 @@ window.addEventListener("load", function () { // сделал это и подн
 			current_map = map;
 		})
 	}
+
+	document.addEventListener("click", ev => {
+		console.log(ev.target);
+
+		for (let menu = 0; menu < building_menus.length; menu++){
+			building_menus[menu].style.display = "none";
+
+			if (building_menus[menu].id === nav_place_chosen + "_селектор") {
+				building_menus[menu].style.display = "block"; //врубаем нужную
+			}
+		}
+		for (let menu = 0; menu < floor_menus.length; menu++){
+			floor_menus[menu].style.display = "none";
+
+			if (floor_menus[menu].id === nav_place_chosen + " " + nav_building_chosen) {
+				floor_menus[menu].style.display = "block";
+			}
+		}
+	})
 
 
 	// фокус на инпуте при нажатии на лупу
